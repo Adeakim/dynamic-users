@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        var profitLossData = JSON.parse('{{ profit_loss_data | safe }}');
+
+        var timestamps = profitLossData.map(function(record) {
+            return record.timestamp.$date;
+        });
+
+        var profitsLosses = profitLossData.map(function(record) {
+            return record.profit_loss;
+        });
+
+        var data = [{
+            x: timestamps,
+            y: profitsLosses,
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: { size: 8 }
+        }];
+
+        var layout = {
+            title: 'Profit/Loss Over Time',
+            xaxis: { title: 'Timestamp' },
+            yaxis: { title: 'Profit/Loss' }
+        };
+
+        Plotly.newPlot('chart', data, layout);
+    </script>
+</body>
+</html>

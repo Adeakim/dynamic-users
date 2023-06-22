@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <ul>
+        {% for trader in traders %}
+            <li><a href="{{ url_for('user_dashboard', username=trader['username']) }}">{{ trader['username'] }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
